@@ -7,6 +7,8 @@ https://user-images.githubusercontent.com/47429091/145022696-35249db9-51d7-41f9-
 
 ![intermediate-axis-theorem-schematic](https://user-images.githubusercontent.com/47429091/145023831-84d359e2-497d-47cb-ac33-537d130645f2.png)
 
+{% include youtubePlayer.html id="1VPfZ_XzisU" %}
+
 You can use the [editor on GitHub](https://github.com/cy-chow/Rigid-Body-Motion/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
