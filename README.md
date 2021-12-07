@@ -1,4 +1,11 @@
-## Rigid Body Motion : The Dzhanibekov Effect
+# Rigid Body Motion : The Intermediate Axis Theorem 
+
+Imagine being an astronaut aboard the ISS. You unscrew a bolt from the control panels and observe the following phenomenon. 
+
+https://user-images.githubusercontent.com/47429091/145022696-35249db9-51d7-41f9-b4bb-36b7ce644d72.mp4
+
+
+![intermediate-axis-theorem-schematic](https://user-images.githubusercontent.com/47429091/145023831-84d359e2-497d-47cb-ac33-537d130645f2.png)
 
 You can use the [editor on GitHub](https://github.com/cy-chow/Rigid-Body-Motion/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
