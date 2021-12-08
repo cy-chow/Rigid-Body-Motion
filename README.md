@@ -102,7 +102,7 @@ Similarly, angular momentum is conserved in world coordinates, and in model coor
 
 ![Momentum Poinsot](https://user-images.githubusercontent.com/47429091/145188250-7b467aae-a836-4e01-9894-30ceff42dd89.png)
 
-These points another ellipsoid whose surface is the points representing a magnitude and direction of the angular velocity that keeps **|L|<sup>2</sup>** constant.
+These points another ellipsoid whose surface is the points representing a magnitude and direction of the angular velocity that keeps **\|L\|<sup>2</sup>** constant.
 
 The exact calculations behind the dimensions of the ellipsoids can be found in the [writeup](https://cseweb.ucsd.edu/~alchern/teaching/cse167_fa21/project-rigidmotion.pdf).
 
