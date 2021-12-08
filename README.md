@@ -59,7 +59,7 @@ First, we'll define
 
 ![w_x](https://user-images.githubusercontent.com/47429091/145176143-75a82342-3ae7-4f4c-b5d8-c999a2f7d9e9.png)
 
-Hence, the axis of rotation is almost exactly the x-axis, with a slight perturbation in the z-axis direction. We'll discuss this perturbation later, but for now let's just run our animation using Buss's method with this initial _ω_.
+Hence, the axis of rotation is almost exactly the x-axis, with a slight perturbation in the z-axis direction. Now let's run our animation using Buss's method with this initial _ω_.
 
 <video src="https://user-images.githubusercontent.com/47429091/145177457-6f87032d-0e37-4334-bbe2-e0ed21e174b3.mov" controls="controls" style="max-width: 730px;">
 </video>
@@ -109,7 +109,6 @@ The exact calculations behind the dimensions of the ellipsoids can be found in t
 Now notice that for both conditions to be true at the same time, the angular velocity must lie on the intersection of the two ellipsoids!
 
 So why are the large and small x and y axes so stable compared to the z-axis? Let's take a look at the rotation around the x-axis.
-
 
 <video src="https://user-images.githubusercontent.com/47429091/145192655-ac55beb7-5adb-4c06-8473-8c0c4d288d77.mov" controls="controls" style="max-width: 730px;">
 </video>
