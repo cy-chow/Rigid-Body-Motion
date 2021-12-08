@@ -73,7 +73,7 @@ Now what about the y-axis? Let
 <video src="https://user-images.githubusercontent.com/47429091/145181045-7505e1b4-4196-40cd-b956-c9b7cbf982c2.mov" controls="controls" style="max-width: 730px;">
 </video>
 
-Again, we see some perturbation around the y-axis, but the bunny still does flip around like the space bolt?
+Again, we see some perturbation around the y-axis, but the bunny still doesn't flip around like the space bolt.
 
 Now we try the intermediate z-axis. Let
 
@@ -88,7 +88,7 @@ Now we can be somewhat confident that the constraints of constant angular moment
 
 ### Poinsot's Ellipsoids
 
-Recall that the animation obeys three important conservation laws.
+Recall that the animation obeys three important conservation laws: conservation of energy, conservation of angular momentum, and rigidity.
 
 ![Poinsot](https://user-images.githubusercontent.com/47429091/145185875-50ad2885-cf30-4e7a-8f92-f5a6d8562014.png)
 
