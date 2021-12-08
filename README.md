@@ -3,8 +3,6 @@
 ## The Intermediate Axis Theorem
 Imagine being an astronaut aboard the ISS. You unscrew a bolt from the control panels and observe the following phenomenon. 
 
-{% include youtubePlayer.html id="1x5UiwEEvpQ" %}
-
 <video src="https://user-images.githubusercontent.com/47429091/145022696-35249db9-51d7-41f9-b4bb-36b7ce644d72.mp4" controls="controls" style="max-width: 730px;">
 </video>
 
@@ -49,11 +47,13 @@ However, since we plan to simulate the rotation in code, our animation will happ
 In particular, this algorithm computes the rotational matrix for our object at each time step such that kinetic energy and angular momentum are conserved.
 Now we've already defined **M<sub>model</sub>**, but what about the initial _R_ and _ω_? How do we compute _Δt_?
 
-Using OpenGL, we can use ```glutGet(GLUT_ELAPSED_TIME)``` and global variables to keep track of the elapsed time between animation frames. In particular, we can keep track of ```prev_time``` and ```curr_time``` so that ```Δt = (curr_time - prev_time) / 1000.0f;```. Note the division to convert from milliseconds to seconds.
+Using OpenGL, we can use `glutGet(GLUT_ELAPSED_TIME)` and global variables to keep track of the elapsed time between animation frames. In particular, we can keep track of `prev_time` and `curr_time` so that `Δt = (curr_time - prev_time) / 1000.0f;`. Note the division to convert from milliseconds to seconds.
 
 _R(t)_ is the rotation matrix that dictates the orientation of our bunny at each frame. The rotation matrix is dependent on time, since the bunny is continuously rotating at each frame, but for simplicity we define the initial rotation matrix as _R = I_ (identity matrix). At each frame, we update the rotation matrix _R(t)_ so the bunny changes its orientation.
 
 _ω_ is the angular velocity of the bunny. Normally, the velocity vector points in the direction of motion, but the angular velocity vector points in the direction of the axis of rotation. The magnitude of _ω_ corresponds to how quickly the angle is changing, i.e. how fast the bunny is spinning around the axis of rotation. We can arbitrarily decide how the bunny is initially spinning, so let's try it out.
+
+### Defining the Rotation
 
 First, we'll define 
 
@@ -70,34 +70,75 @@ Now what about the y-axis? Let
 
 ![w_y](https://user-images.githubusercontent.com/47429091/145177981-d52a7285-23ae-4469-8662-98680029a469.png)
 
+<video src="https://user-images.githubusercontent.com/47429091/145181045-7505e1b4-4196-40cd-b956-c9b7cbf982c2.mov" controls="controls" style="max-width: 730px;">
+</video>
+
+Again, we see some perturbation around the y-axis, but the bunny still does flip around like the space bolt?
+
+Now we try the intermediate z-axis. Let
+
+![w_z](https://user-images.githubusercontent.com/47429091/145182930-a76b53da-bb8e-4452-b486-0c8da8b3bb4b.png)
+
+<video src="https://user-images.githubusercontent.com/47429091/145183484-c105164b-ca63-4210-8096-8dcbc1fa5c5b.mov" controls="controls" style="max-width: 730px;">
+</video>
+
+Success! The bunny's orientation changes while in rotation around the z-axis. Much like how the bolt changes the direction it's facing, the bunny takes turns facing towards us and away from us.
+
+Now we can be somewhat confident that the constraints of constant angular momentum and kinetic energy result in the instability of rotation around the intermediate axis, but what exactly is this relationship? One way we can visualize the relationship is by constructing **Poinsot's ellipsoids**.
+
+### Poinsot's Ellipsoids
+
+Recall that the animation obeys three important conservation laws.
+
+![Poinsot](https://user-images.githubusercontent.com/47429091/145185875-50ad2885-cf30-4e7a-8f92-f5a6d8562014.png)
+
+Since kinetic energy stays constant no matter the orientation of the object, we can calculate all points (x,y,z) such that 
+
+![Kinetic Poinsot](https://user-images.githubusercontent.com/47429091/145187624-2a7f86ee-63ce-46df-8d24-cdaa660fbd42.png)
+
+These points form an ellipsoid where each point on its surface represents a magnitude and direction of the angular velocity that would keep _E<sub>kinetic</sub>_ at the same constant value.
+
+Similarly, angular momentum is conserved in world coordinates, and in model coordinates its magnitude is constant, so we can find the set of (x,y,z) such that 
+
+![Momentum Poinsot](https://user-images.githubusercontent.com/47429091/145188250-7b467aae-a836-4e01-9894-30ceff42dd89.png)
+
+These points another ellipsoid whose surface is the points representing a magnitude and direction of the angular velocity that keeps **|L|<sup>2</sup>** constant.
+
+The exact calculations behind the dimensions of the ellipsoids can be found in the [writeup](https://cseweb.ucsd.edu/~alchern/teaching/cse167_fa21/project-rigidmotion.pdf).
+
+Now notice that for both conditions to be true at the same time, the angular velocity must lie on the intersection of the two ellipsoids!
+
+So why are the large and small x and y axes so stable compared to the z-axis? Let's take a look at the rotation around the x-axis.
+
+
+<video src="https://user-images.githubusercontent.com/47429091/145192655-ac55beb7-5adb-4c06-8473-8c0c4d288d77.mov" controls="controls" style="max-width: 730px;">
+</video>
+
+Notice how the intersection of the two ellipsoids (called the **polhode**) is an incredibly small circular region near the axis of rotation, so the angular velocity, represented as the black dot, makes small circular rotations around the axis of rotation and barely changes position, which explains the stability of rotation around the x-axis.
+
+What about the y-axis?
+
+<video src="https://user-images.githubusercontent.com/47429091/145193314-1030b7cc-2472-421e-8e06-2f5d0707d4da.mov" controls="controls" style="max-width: 730px;">
+</video>
+
+Again, the polhode is a small elliptical region around the axis of rotation, so the position of angular velocity barely changes and the bunny wobbles steadily around the y-axis.
+
+Now let's take a look at the rotation around the intermediate z-axis.
+
+<video src="https://user-images.githubusercontent.com/47429091/145190252-21914044-d15a-4f2d-930d-c0558d364c2f.mov" controls="controls" style="max-width: 730px;">
+</video>
+
+Notice the intersection of the two ellipsoids is considerably more complicated, and as a result the angular velocity traces out a more complicated shape compared to the small circles it was making earlier. We can now quantitatively see why the direction of rotation changes so wildly compared to the other axes.
+
+Below are a few photos and videos detailing some other interesting aspects of the ellipsoids and orientations. Notice the ellipsoids depend on the moments of inertia of the objects and how **M<sub>model</sub>** directly influences the type of motion we observe around the axes.
+
+Spefically, the cube has moments of inertia that are exactly the same along all coordinate axes, so there is no unstable intermediate axis, unlike the teapot and bunny.
+
+<video src="https://user-images.githubusercontent.com/47429091/145194000-c1b18a63-a902-45a3-9c40-39e6650b8753.mov" controls="controls" style="max-width: 730px;">
+</video>
 
 ### Further Resources
-- [Wikipedia Reference](https://en.wikipedia.org/wiki/Tennis_racket_theorem)
+- [Tennis Racket Theorem on Wikipedia](https://en.wikipedia.org/wiki/Tennis_racket_theorem)
 - [Terence Tao's intuitive explanation](https://mathoverflow.net/a/82020)
 - [Veritasium's visualization Tao's explanation](https://www.youtube.com/watch?v=1VPfZ_XzisU)
-- [Dzhanibekov Effect in Space](https://user-images.githubusercontent.com/47429091/145022696-35249db9-51d7-41f9-b4bb-36b7ce644d72.mp4)
-
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+- [Poinsot's ellipsoid on Wikipedia](https://en.wikipedia.org/wiki/Poinsot%27s_ellipsoid)
