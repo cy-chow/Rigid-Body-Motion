@@ -5,6 +5,9 @@ Imagine being an astronaut aboard the ISS. You unscrew a bolt from the control p
 
 {% include youtubePlayer.html id="1x5UiwEEvpQ" %}
 
+<video src="https://user-images.githubusercontent.com/47429091/145022696-35249db9-51d7-41f9-b4bb-36b7ce644d72.mp4" controls="controls" style="max-width: 730px;">
+</video>
+
 What you see seems to defy Newton's first law. How is the object rotating without any external force?
 Does this happen with any object, or is there something special about the bolt?
 
@@ -58,7 +61,8 @@ First, we'll define
 
 Hence, the axis of rotation is almost exactly the x-axis, with a slight perturbation in the z-axis direction. We'll discuss this perturbation later, but for now let's just run our animation using Buss's method with this initial _ω_.
 
-https://user-images.githubusercontent.com/47429091/145177457-6f87032d-0e37-4334-bbe2-e0ed21e174b3.mov
+<video src="https://user-images.githubusercontent.com/47429091/145177457-6f87032d-0e37-4334-bbe2-e0ed21e174b3.mov" controls="controls" style="max-width: 730px;">
+</video>
 
 While the bunny wobbles slightly around the x-axis, we don't see the repeating change in orientation like in our space example above.
 
