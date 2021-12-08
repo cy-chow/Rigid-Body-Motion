@@ -39,6 +39,32 @@ Recall from freshman physics class that energy and momentum are conserved. In pa
 2. _E<sub>kinetic</sub>_ (angular kinetic energy) remains constant.
 3. _L_ (angular momentum) remains constant.
 
+However, since we plan to simulate the rotation in code, our animation will happen in discrete frames rather than continuously like in the real world. Hence, we use a specific algorithm to numerically approximate the conditions stated above. 
+
+![Buss's algorithm](https://user-images.githubusercontent.com/47429091/145158305-80a04198-eb5b-432c-9d2b-d0b5d3a16292.png)
+
+In particular, this algorithm computes the rotational matrix for our object at each time step such that kinetic energy and angular momentum are conserved.
+Now we've already defined **M<sub>model</sub>**, but what about the initial _R_ and _ω_? How do we compute _Δt_?
+
+Using OpenGL, we can use ```glutGet(GLUT_ELAPSED_TIME)``` and global variables to keep track of the elapsed time between animation frames. In particular, we can keep track of ```prev_time``` and ```curr_time``` so that ```Δt = (curr_time - prev_time) / 1000.0f;```. Note the division to convert from milliseconds to seconds.
+
+_R(t)_ is the rotation matrix that dictates the orientation of our bunny at each frame. The rotation matrix is dependent on time, since the bunny is continuously rotating at each frame, but for simplicity we define the initial rotation matrix as _R = I_ (identity matrix). At each frame, we update the rotation matrix _R(t)_ so the bunny changes its orientation.
+
+_ω_ is the angular velocity of the bunny. Normally, the velocity vector points in the direction of motion, but the angular velocity vector points in the direction of the axis of rotation. The magnitude of _ω_ corresponds to how quickly the angle is changing, i.e. how fast the bunny is spinning around the axis of rotation. We can arbitrarily decide how the bunny is initially spinning, so let's try it out.
+
+First, we'll define 
+
+![w_x](https://user-images.githubusercontent.com/47429091/145176143-75a82342-3ae7-4f4c-b5d8-c999a2f7d9e9.png)
+
+Hence, the axis of rotation is almost exactly the x-axis, with a slight perturbation in the z-axis direction. We'll discuss this perturbation later, but for now let's just run our animation using Buss's method with this initial _ω_.
+
+https://user-images.githubusercontent.com/47429091/145177457-6f87032d-0e37-4334-bbe2-e0ed21e174b3.mov
+
+While the bunny wobbles slightly around the x-axis, we don't see the repeating change in orientation like in our space example above.
+
+Now what about the y-axis? Let 
+
+![w_y](https://user-images.githubusercontent.com/47429091/145177981-d52a7285-23ae-4469-8662-98680029a469.png)
 
 
 ### Further Resources
